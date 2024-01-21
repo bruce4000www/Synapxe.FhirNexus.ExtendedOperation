@@ -1,0 +1,163 @@
+@baseUrl=https://localhost:5001
+@applicationId=test-app
+
+### Create patientA appointment at 10am on 2024-01-23:
+POST {{baseUrl}}/Appointment
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/fhir+json
+
+{
+  "resourceType": "Appointment",
+  "status": "booked",
+  "start": "2024-01-23T10:00:00+08:00",
+  "end": "2024-01-23T11:00:00+08:00",
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/patientA"
+      },
+      "status": "tentative"
+    }
+  ]
+}
+
+### Create PatientB appointment at 11am on 2024-01-23:
+POST {{baseUrl}}/Appointment
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/fhir+json
+
+{
+  "resourceType": "Appointment",
+  "status": "booked",
+  "start": "2024-01-23T11:00:00+08:00",
+  "end": "2024-01-23T12:00:00+08:00",
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/PatientB"
+      },
+      "status": "tentative"
+    }
+  ]
+}
+
+### Create PatientC appointment at 12pm on 2024-01-23:
+POST {{baseUrl}}/Appointment
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/fhir+json
+
+{
+  "resourceType": "Appointment",
+  "status": "booked",
+  "start": "2024-01-23T12:00:00+08:00",
+  "end": "2024-01-23T13:00:00+08:00",
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/PatientC"
+      },
+      "status": "tentative"
+    }
+  ]
+}
+
+### Create PatientD appointment at 1pm on 2024-01-23:
+POST {{baseUrl}}/Appointment
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/fhir+json
+
+{
+  "resourceType": "Appointment",
+  "status": "booked",
+  "start": "2024-01-23T13:00:00+08:00",
+  "end": "2024-01-23T14:00:00+08:00",
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/PatientD"
+      },
+      "status": "tentative"
+    }
+  ]
+}
+
+### Search appointments by _id:
+POST {{baseUrl}}/Appointment/_search
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/x-www-form-urlencoded
+
+_id=5C67676E585044D8945BB1F566E00DFE
+
+### Search appointments by _lastUpdated:
+POST {{baseUrl}}/Appointment/_search
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/x-www-form-urlencoded
+
+_lastUpdated=gt2024-01-21T14:39:01
+# Note _lastUpdated must be UTC time, refer to https://hl7.org/fhir/R5/search.html#prefix for date time search details
+
+### Search appointments by patient id:
+POST {{baseUrl}}/Appointment/_search
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/x-www-form-urlencoded
+
+patient=PatientB
+# Refer to https://hl7.org/fhir/appointment.html#search for list of standard Appointment search parameters
+
+### Search appointments by status:
+POST {{baseUrl}}/Appointment/_search
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/x-www-form-urlencoded
+
+status=booked&_total=accurate
+# Refer to https://hl7.org/fhir/R5/search.html#table for FHIR common search parameters
+
+### Search appointments by status with _count and _sort for pagination:
+POST {{baseUrl}}/Appointment/_search
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/x-www-form-urlencoded
+
+status=booked&_total=accurate&_count=2&_sort=date
+
+### Search appointments to return specified data by _elements:
+POST {{baseUrl}}/Appointment/_search
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/x-www-form-urlencoded
+
+status=booked&_total=accurate&_elements=id,status,participant
+
+
+### $get-next-appointment, create PatientC appointment at 12pm on 2024-01-25:
+POST {{baseUrl}}/Appointment
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/fhir+json
+
+{
+  "resourceType": "Appointment",
+  "status": "booked",
+  "start": "2024-01-25T12:00:00+08:00",
+  "end": "2024-01-25T13:00:00+08:00",
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/PatientC"
+      },
+      "status": "tentative"
+    }
+  ]
+}
+
+### $get-next-appointment
+POST {{baseUrl}}/Appointment/$get-next-appointment
+X-Ihis-SourceApplication: {{applicationId}}
+Content-Type: application/fhir+json
+
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "patient-identifier",
+      "valueString": "PatientC"
+    }
+  ]
+}

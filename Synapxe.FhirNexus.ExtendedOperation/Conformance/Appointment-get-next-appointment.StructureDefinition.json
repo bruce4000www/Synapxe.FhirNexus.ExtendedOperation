@@ -1,0 +1,69 @@
+﻿{
+  "resourceType": "StructureDefinition",
+  "url": "http://sypnapxe.sg/fhir/StructureDefinition/Appointment-Get-Next-Appointment",
+  "name": "Appointment-get-next-appointment",
+  "status": "draft",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Parameters",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Parameters",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Parameters.parameter",
+        "path": "Parameters.parameter",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "name"
+            }
+          ],
+          "rules": "open"
+        },
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Parameters.parameter.part",
+        "path": "Parameters.parameter.part",
+        "max": "0",
+        "contentReference": "http://hl7.org/fhir/StructureDefinition/Parameters#Parameters.parameter"
+      },
+      {
+        "id": "Parameters.parameter:patient-identifier",
+        "path": "Parameters.parameter",
+        "sliceName": "patient-identifier",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Parameters.parameter:patient-identifier.name",
+        "path": "Parameters.parameter.name",
+        "fixedString": "patient-identifier"
+      },
+      {
+        "id": "Parameters.parameter:patient-identifier.value[x]",
+        "path": "Parameters.parameter.value[x]",
+        "min": 1,
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "Parameters.parameter:patient-identifier.resource",
+        "path": "Parameters.parameter.resource",
+        "max": "0"
+      },
+      {
+        "id": "Parameters.parameter:patient-identifier.part",
+        "path": "Parameters.parameter.part",
+        "max": "0"
+      }
+    ]
+  }
+}

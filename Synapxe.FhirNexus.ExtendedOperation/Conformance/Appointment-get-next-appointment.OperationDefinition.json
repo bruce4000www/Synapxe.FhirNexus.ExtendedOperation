@@ -1,0 +1,30 @@
+{
+  "resourceType": "OperationDefinition",
+  "id": "Appointment-get-next-appointment",
+  "name": "GetNextAppointment",
+  "inputProfile": "http://sypnapxe.sg/fhir/StructureDefinition/Appointment-Get-Next-Appointment",
+  "status": "active",
+  "kind": "operation",
+  "description": "Get next appointment for a specified patient.",
+  "system": false,
+  "type": true,
+  "instance": false,
+  "parameter": [
+    {
+      "name": "patient-identifier",
+      "use": "in",
+      "min": 1,
+      "max": "1",
+      "documentation": "Patient identifier, such as NRIC/FIN/Passport No.",
+      "type": "string"
+    },
+    {
+      "name": "return",
+      "use": "out",
+      "min": 1,
+      "max": "1",
+      "documentation": "Next appointment for the patient.",
+      "type": "Appointment"
+    }
+  ]
+}
