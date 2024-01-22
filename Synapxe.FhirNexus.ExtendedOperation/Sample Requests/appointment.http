@@ -86,7 +86,7 @@ POST {{baseUrl}}/Appointment/_search
 X-Ihis-SourceApplication: {{applicationId}}
 Content-Type: application/x-www-form-urlencoded
 
-_id=5C67676E585044D8945BB1F566E00DFE
+_id=D43D20D24B1C4BD18E53683CD00A4010
 
 ### Search appointments by _lastUpdated:
 POST {{baseUrl}}/Appointment/_search
