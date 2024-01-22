@@ -1,7 +1,9 @@
 
-## Step 1: Add nexus repository to global nuget.config
+## Step 1: Add nexus repository to global nuget.config and install FhirNexus template to visual studio
 ```
 dotnet nuget add source https://nexus.ihis-hip.sg/repository/ihis-nuget/ -n nexus -u YOUR_USER_NAME -p YOUR_PASSWORD
+
+dotnet new --install Ihis.FhirEngine.WebApiTemplate.CSharp::3.0.1
 ```
 ## Step 2: Create a new project from FHIRNexus template
 ![image](https://github.com/bruce4000www/Synapxe.FhirNexus.ExtendedOperation/assets/141336095/574859fb-3e8c-47a7-b30c-8115542ea0f3)
